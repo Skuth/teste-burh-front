@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import { useRouter } from "vue-router"
+
 import Button from "@/components/Button"
 
 export default {
@@ -50,28 +52,37 @@ export default {
     return {
       userOn: false,
       dropDownOpen: false,
-      search: null
+      search: null,
+      router: null
     }
   },
   methods: {
-    dropDownToggle: function() {
+    goTo(to) {
+      this.router.push(to)
+    },
+    dropDownToggle() {
       this.dropDownOpen = !this.dropDownOpen
     },
-    dropDownOutsideClick: function(e) {
+    dropDownOutsideClick(e) {
       if (this.dropDownOpen && !this.$el.contains(e.target)) {
         this.dropDownOpen = false
       }
     },
-    productSearch: function(e) {
+    productSearch(e) {
       e.preventDefault()
 
-      alert(this.search)
+      if (this.search === null || this.search.length === 0) {
+        this.goTo(`/produtos`)
+      } else {
+        this.goTo(`/produtos?pesquisa=${this.search}`)
 
-      this.search = ""
+        this.search = ""
+      }
     }
   },
   mounted() {
     document.addEventListener("click", this.dropDownOutsideClick)
+    this.router = useRouter()
   },
   beforeUnmount() {
     document.removeEventListener("click", this.dropDownOutsideClick)

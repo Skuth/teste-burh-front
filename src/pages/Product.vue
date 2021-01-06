@@ -1,5 +1,5 @@
 <template>
-  <section v-if="product" class="product__container animation__fadeIn">
+  <section v-if="product" class="product__container animation__fadeIn mh">
     <div class="product__content mw">
       <div class="product__content__info">
         <div class="product__images">

@@ -41,6 +41,10 @@ input {
   margin: 0 auto;
 }
 
+.mh {
+  min-height: calc(100vh - 81px - 67px);
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0;

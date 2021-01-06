@@ -1,6 +1,6 @@
 <template>
   <header class="header__container animation__fadeIn">
-    <div class="header__content mw">
+    <div class="header__content mw mh">
       <div class="header__left">
         <h2>Não usa mais?</h2>
         <p>Que tal vender rapidinho e com poucos cliques?</p>
@@ -28,10 +28,10 @@
 </template>
 
 <script>
+import axios from "axios"
+
 import Button from "@/components/Button"
 import ItemBox from "@/components/ItemBox"
-
-import axios from "axios"
 
 export default {
   name: 'Home',
@@ -47,7 +47,11 @@ export default {
   mounted() {
     axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products`)
     .then(res => res.data)
-    .then(res => this.products = res.slice(0,8))
+    .then(res => {
+      if (res.length > 0) {
+        this.products = res.slice(0,8)
+      }
+    })
     .catch(err => console.log(err))
   }
 }

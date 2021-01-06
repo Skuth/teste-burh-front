@@ -1,0 +1,14 @@
+@import "../base/variables";
+@import "../base/functions";
+@import "../base/mixins";
+@import "../components/Button.scss";
+
+.button__container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button {
+    outline: none;
+  }
+}
