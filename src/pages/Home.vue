@@ -47,8 +47,6 @@ export default {
     .then(res => res.data)
     .then(res => this.products = res.slice(0,8))
     .catch(err => console.log(err))
-
-    console.log(this.products)
   }
 }
 </script>
