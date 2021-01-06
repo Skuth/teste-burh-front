@@ -1,0 +1,11 @@
+@import "../base/variables";
+@import "../base/functions";
+
+.footer__container {
+  padding: 25px 0;
+  background: $defaultAppColor;
+  color: #ffffff;
+  .footer__content p {
+    font-size: em(14);
+  }
+}

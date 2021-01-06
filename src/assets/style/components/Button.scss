@@ -1,0 +1,21 @@
+@import "../base/variables";
+@import "../base/functions";
+@import "../base/mixins";
+
+.btn {
+  background: $defaultAppColor;
+  padding: 10px 20px;
+  color: #ffffff;
+  user-select: none;
+  display: inline-block;
+  cursor: pointer;
+  @include radius();
+  @include transition();
+  &:hover {
+    background: darken($defaultAppColor, 5);
+    @include boxShadow($opacity: 0.1);
+  }
+  &.round {
+    @include radius($all: 100px);
+  }
+}

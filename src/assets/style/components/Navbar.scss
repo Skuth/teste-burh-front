@@ -1,0 +1,146 @@
+@import "../base/variables";
+@import "../base/functions";
+@import "../base/mixins";
+
+.navbar__container {
+  background: #ffffff;
+  border-bottom: 1px solid $borderColor;
+  .navbar__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    .navbar__left {
+      display: flex;
+      align-items: center;
+      .navbar__logo {
+        width: 100px;
+        user-select: none;
+        img {
+          display: block;
+          width: 100%;
+        }
+      }
+      .navbar__search {
+        margin-left: 20px;
+        input {
+          padding: 10px 20px;
+          font-size: em(16);
+          outline: none;
+          border: 1px solid $borderColor;
+          @include radius($all: 100px);
+          @include boxShadow($offset: 0 0, $opacity: 0.02);
+        }
+      }
+    }
+    .navbar__right {
+      display: flex;
+      align-items: center;
+      .navbar__account {
+        .navbar__account__content {
+          display: flex;
+          align-items: center;
+          user-select: none;
+          position: relative;
+          cursor: pointer;
+          &:hover {
+            p {
+              color: $defaultAppColor;
+            }
+          }
+          @keyframes dropDownAnimation {
+            0% {
+              top: 50%;
+              opacity: 0;
+            }
+            100% {
+              top: 110%;
+              opacity: 1;
+            }
+          }
+          .navbar__dropdown {
+            position: absolute;
+            background: #ffffff;
+            width: 100%;
+            top: 110%;
+            overflow: hidden;
+            animation: dropDownAnimation 1s cubic-bezier(.85,.01,.02,.94);
+            @include radius();
+            @include boxShadow($opacity: 0.2);
+            ul li a {
+              @include transition();
+              &:hover {
+                color: $defaultAppColor;
+                background: $btnHoverColor;
+              }
+            }
+          }
+          p {
+            margin-right: 10px;
+            @include transition();
+          }
+          img {
+            display: block;
+            width: 45px;
+            height: 45px;
+            @include radius($all: 50%);
+          }
+        }
+        a {
+          display: block;
+          padding: 10px;
+        }
+      }
+      .navbar__button {
+        margin-left: 20px;
+      }
+    }
+  }
+}
+
+@media(max-width: 800px) {
+  .navbar__container {
+    .navbar__content {
+      flex-direction: column;
+      .navbar__left, .navbar__right {
+        width: 100%;
+      }
+      .navbar__left {
+        flex-direction: column;
+        .navbar__search {
+          padding: 20px 0;
+          width: 100%;
+          margin: 0;
+          input {
+            width: calc(100% - 20px * 2 - 2px);
+          }
+        }
+      }
+      .navbar__right {
+        justify-content: space-between;
+      }
+    }
+  }
+}
+
+@media(max-width: 400px) {
+  .navbar__container .navbar__content .navbar__right {
+    .navbar__account {
+      font-size: em(14);
+      .navbar__account__content {
+        flex-direction: row-reverse;
+        p {
+          margin: 0;
+          margin-left: 10px;
+        }
+        img {
+          width: 35px;
+          height: 35px;
+        }
+      }
+    }
+    .navbar__button {
+      font-size: em(12);
+    }
+  }
+}

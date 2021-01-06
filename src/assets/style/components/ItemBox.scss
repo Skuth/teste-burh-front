@@ -1,0 +1,69 @@
+@import "../base/variables";
+@import "../base/functions";
+@import "../base/mixins";
+
+.item__box {
+  user-select: none;
+  width: 100%;
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid $borderColor;
+  cursor: pointer;
+  @include radius();
+  @include boxShadow($offset: 0 0, $opacity: 0.1);
+  @include transition();
+  &:hover {
+    @include boxShadow($opacity: 0.4);
+  }
+  .item__picture {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    img {
+      display: block;
+      width: 80%;
+    }
+  }
+  .item__info {
+    padding: 10px 20px;
+    background: #fdfdfd;
+    .item__info__header {
+      .title {
+        font-size: em(20);
+        font-weight: bold;
+      }
+      .city {
+        font-size: em(14);
+        font-weight: lighter;
+      }
+    }
+    .item__info__price {
+      padding: 10px 0;
+      span {
+        font-size: em(14);
+        font-weight: lighter;
+        .price {
+          font-size: em(24);
+          font-weight: bold;
+        }
+      }
+    }
+    .item__info__footer {
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      p {
+        margin-right: 10px;
+        font-size: em(14);
+        padding: 5px 10px;
+        border: 2px solid $defaultAppColor;
+        color: $defaultAppColor;
+        @include radius($all: 100px);
+      }
+    }
+  }
+}
