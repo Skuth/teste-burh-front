@@ -1,0 +1,50 @@
+@import "./base/variables";
+
+* {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+html, body, a {
+  font-family: "Roboto", sans-serif, Tahoma, Geneva, Verdana;
+  color: $textColor;
+}
+
+ul, ol, li {
+  list-style: none;
+}
+
+body {
+  background: $backgroundColor;
+}
+
+a {
+  text-decoration: none;
+}
+
+input {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+.mw {
+  width: 90%;
+  margin: 0 auto;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animation__fadeIn {
+  animation: fadeIn 2s;
+}
