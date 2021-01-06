@@ -59,6 +59,23 @@ input {
   color: $defaultAppColor;
 }
 
+.products__box__container {
+  padding: 20px 0;
+  .products__box__content {
+    h4 {
+      padding: 20px 0;
+      font-size: em(24);
+    }
+    .products__box__items {
+      padding: 20px 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      column-gap: 20px;
+      row-gap: 20px;
+    }
+  }
+}
+
 @media(max-width: 950px) {
   .products__box__container .products__box__content .products__box__items {
     grid-template-columns: repeat(3, 1fr);

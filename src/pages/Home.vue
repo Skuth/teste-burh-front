@@ -17,7 +17,7 @@
   </header>
   <section v-if="products" class="products__box__container animation__fadeIn">
     <div class="products__box__content mw">
-      <div class="product__box__items">
+      <div class="products__box__items">
         <ItemBox v-for="(product, index) in products" v-bind:key="index" v-bind:product="product" />
       </div>
     </div>

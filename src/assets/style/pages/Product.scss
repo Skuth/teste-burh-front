@@ -101,23 +101,6 @@
   }
 }
 
-.products__suggestions__container {
-  padding: 20px 0;
-  .products__suggestions__content {
-    h4 {
-      padding: 20px 0;
-      font-size: em(24);
-    }
-    .products__suggestions__items {
-      padding: 20px 0;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      column-gap: 20px;
-      row-gap: 20px;
-    }
-  }
-}
-
 
 @media(max-width: 800px) {
   .product__container .product__content .product__content__info {
