@@ -1,7 +1,10 @@
 <template>
-  <router-link v-bind:to="to" class="btn" v-bind:class="{round}">
+  <router-link v-if="!external" v-bind:to="to" class="btn" v-bind:class="{round}">
     <p>{{ text }}</p>
   </router-link>
+  <a v-else v-bind:href="to" target="_blank" class="btn" v-bind:class="{round}">
+    <p>{{ text }}</p>
+  </a>
 </template>
 
 <script>
@@ -10,7 +13,8 @@ export default {
   props: {
     to: String,
     text: String,
-    round: Boolean
+    round: Boolean,
+    external: Boolean
   }
 }
 </script>

@@ -16,7 +16,7 @@
           <div class="product__info__price">
             <span>R$ <span class="price">{{ product.price }}</span></span>
           </div>
-          <Button to="/" text="Opa, eu quero" round />
+          <Button external v-bind:to="'https://api.whatsapp.com/send/?phone=55'+product.contact+'&text=Opa, estava dando uma olhada no *Trasell* e vi que está vendendo *'+product.title+'*, tenho interesse em comprar!'" text="Opa, eu quero" round />
           <div class="product__info__extra">
             <p v-if="product.is_deliverable">Entrega</p>
             <p v-if="product.is_tradeble">Aceita troca</p>
