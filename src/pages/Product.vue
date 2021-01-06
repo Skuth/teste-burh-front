@@ -23,7 +23,7 @@
           </div>
           <div class="product__info__description">
             <h3>Descrição</h3>
-            <p>{{ product.descriptions }}</p>
+            <p>{{ product.description }}</p>
           </div>
         </div>
       </div>
@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import Button from "../components/Button"
-import ItemBox from "../components/ItemBox"
+import Button from "@/components/Button"
+import ItemBox from "@/components/ItemBox"
 
 import axios from "axios"
 import { useRoute } from "vue-router"

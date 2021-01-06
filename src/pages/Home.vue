@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import Button from "../components/Button"
-import ItemBox from "../components/ItemBox"
+import Button from "@/components/Button"
+import ItemBox from "@/components/ItemBox"
 
 import axios from "axios"
 

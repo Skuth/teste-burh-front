@@ -14,7 +14,7 @@
         </div>
       </div>
       <div class="navbar__right">
-        <div v-if="userOn" class="navbar__account">
+        <!-- <div v-if="userOn" class="navbar__account">
           <div class="navbar__account__content" @click="dropDownToggle">
             <p>Minha conta</p>
             <img src="https://via.placeholder.com/45" alt="User image">
@@ -29,7 +29,7 @@
         </div>
         <div v-else class="navbar__account">
           <router-link to="/entrar">Entrar</router-link>
-        </div>
+        </div> -->
         <div class="navbar__button">
           <Button to="/anunciar" text="Anuncie agora" round />
         </div>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import Button from "./Button"
+import Button from "@/components/Button"
 
 export default {
   name: "Navbar",

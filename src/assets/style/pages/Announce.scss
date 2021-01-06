@@ -1,0 +1,32 @@
+@import "../base/variables";
+@import "../base/functions";
+@import "../base/mixins";
+
+.mw {
+  max-width: calc(1000px - 20px * 2 - 2px);
+  width: calc(90% - 20px * 2 - 2px);
+}
+
+.announce__container {
+  padding: 40px 0;
+  min-height: calc(100vh - 81px - (67px * 2) - 13px);
+  .announce__content {
+    background: #ffffff;
+    padding: 20px;
+    border: 1px solid $borderColor;
+    @include radius();
+    @include boxShadow($offset: 0 0, $opacity: 0.05);
+    form {
+      .submit {
+        padding: 20px 0;
+        align-items: flex-end;
+      }
+    }
+  }
+}
+
+@media(max-width: 500px) {
+  .announce__container .announce__content form .submit {
+    align-items: stretch;
+  }
+}
