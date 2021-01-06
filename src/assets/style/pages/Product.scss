@@ -118,25 +118,10 @@
   }
 }
 
-@media(max-width: 950px) {
-  .products__suggestions__container .products__suggestions__content .products__suggestions__items {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
 
 @media(max-width: 800px) {
   .product__container .product__content .product__content__info {
     display: flex;
     flex-direction: column;
-  }
-
-  .products__suggestions__container .products__suggestions__content .products__suggestions__items {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media(max-width: 450px) {
-  .products__suggestions__container .products__suggestions__content .products__suggestions__items {
-    grid-template-columns: 1fr;
   }
 }

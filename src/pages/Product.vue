@@ -29,10 +29,10 @@
       </div>
     </div>
   </section>
-  <section v-if="products" class="products__suggestions__container animation__fadeIn">
-    <div class="products__suggestions__content mw">
+  <section v-if="products" class="products__box__container animation__fadeIn">
+    <div class="products__box__content mw">
       <h4>Olha mais alguns produtinhos aqui</h4>
-      <div class="products__suggestions__items">
+      <div class="products__box__items">
         <ItemBox v-for="(product, index) in products" v-bind:key="index" v-bind:product="product" />
       </div>
     </div>

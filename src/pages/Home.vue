@@ -15,9 +15,11 @@
       </div>
     </div>
   </header>
-  <section v-if="products" class="products__container animation__fadeIn">
-    <div class="products__content mw">
-      <ItemBox v-for="(product, index) in products" v-bind:key="index" v-bind:product="product" />
+  <section v-if="products" class="products__box__container animation__fadeIn">
+    <div class="products__box__content mw">
+      <div class="product__box__items">
+        <ItemBox v-for="(product, index) in products" v-bind:key="index" v-bind:product="product" />
+      </div>
     </div>
     <div class="products__see__more mw">
       <router-link to="produtos">Ver mais produtos</router-link>
