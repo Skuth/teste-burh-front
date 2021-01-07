@@ -187,6 +187,18 @@ export default {
     goToId(id) {
       this.router.push(`/produto/${id}`)
     },
+    getCityList() {
+      axios.get("https://raw.githubusercontent.com/felipefdl/cidades-estados-brasil-json/master/Estados.json")
+        .then(res => res.data)
+        .then(res => this.stateList = res)
+
+      axios.get("https://raw.githubusercontent.com/felipefdl/cidades-estados-brasil-json/master/Cidades.json")
+        .then(res => res.data)
+        .then(res => this.cityList = res)
+    },
+    updateCity(city) {
+      this.city = `${city.Nome} - ${city.Estado}`
+    },
     setImages(e) {
       this.images = []
 
@@ -305,18 +317,6 @@ export default {
           }
         }, 3000)
       }
-    },
-    getCityList() {
-      axios.get("https://raw.githubusercontent.com/felipefdl/cidades-estados-brasil-json/master/Estados.json")
-        .then(res => res.data)
-        .then(res => this.stateList = res)
-
-      axios.get("https://raw.githubusercontent.com/felipefdl/cidades-estados-brasil-json/master/Cidades.json")
-        .then(res => res.data)
-        .then(res => this.cityList = res)
-    },
-    updateCity(city) {
-      this.city = `${city.Nome} - ${city.Estado}`
     }
   },
   mounted() {
