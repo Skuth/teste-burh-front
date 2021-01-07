@@ -1,0 +1,32 @@
+@import "../base/variables";
+@import "../base/mixins";
+
+@keyframes spinnerAnimation {
+  0% {
+    opacity: 0.2;
+    transform: rotate(0deg);
+    border-top-color: $borderColor;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(359deg);
+    border-top-color: $defaultAppColor;
+  }
+}
+
+.preload__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid transparent;
+    border-top-color: $borderColor;
+    animation: spinnerAnimation 1.5s infinite;
+    @include radius($all: 100px);
+  }
+}

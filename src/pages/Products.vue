@@ -9,7 +9,7 @@
       </div>
     </div>
   </section>
-  <section v-else class="not__found__container animation__fadeIn">
+  <section v-else-if="is_load" class="not__found__container animation__fadeIn">
     <div class="not__found__content mw mh">
       <p class="title">Opaa</p>
       <span>Não encontrei nada aqui :c</span>
@@ -17,6 +17,7 @@
       <Button to="/anunciar" text="Anuncia ai" round />
     </div>
   </section>
+  <PreLoad v-else />
 </template>
 
 <script>
@@ -25,12 +26,14 @@ import { useRoute } from "vue-router"
 
 import ItemBox from "@/components/ItemBox.vue"
 import Button from "@/components/Button.vue"
+import PreLoad from "@/components/PreLoad.vue"
 
 export default {
   name: "Products",
   components: {
     ItemBox,
-    Button
+    Button,
+    PreLoad
   },
   data() {
     return {
@@ -46,6 +49,7 @@ export default {
     $route() {
       this.getParam()
       this.products = []
+      this.is_load = false
       this.getData()
     }
   },
@@ -65,8 +69,6 @@ export default {
 
           res.slice((8 * start),(8 * this.pagina)).map((item) => this.products.push(item))
 
-          this.is_load = true
-
           if ((8 * this.pagina) > res.length) this.btnShow = false
         })
         .catch(err => console.log(err))
@@ -85,6 +87,8 @@ export default {
 
     this.router = useRoute()
     this.getParam()
+
+    setTimeout(() => this.is_load = true, 2000)
   }
 }
 </script>

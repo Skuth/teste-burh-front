@@ -1,5 +1,5 @@
 <template>
-  <section v-if="product" class="product__container animation__fadeIn mh">
+  <section v-if="is_load && product" class="product__container animation__fadeIn mh">
     <div class="product__content mw">
       <div class="product__content__info">
         <div class="product__images">
@@ -32,7 +32,7 @@
       </div>
     </div>
   </section>
-  <section v-else class="not__found__container animation__fadeIn">
+  <section v-else-if="is_load" class="not__found__container animation__fadeIn">
     <div class="not__found__content mw mh">
       <p class="title">Opaa</p>
       <span>Não encontrei nada aqui :c</span>
@@ -40,7 +40,8 @@
       <Button to="/anunciar" text="Anuncia ai" round />
     </div>
   </section>
-  <section v-if="products" class="products__box__container animation__fadeIn">
+  <PreLoad v-else />
+  <section v-if="is_load && product && products" class="products__box__container animation__fadeIn">
     <div class="products__box__content mw">
       <h4>Olha mais alguns produtinhos aqui</h4>
       <div class="products__box__items">
@@ -53,6 +54,7 @@
 <script>
 import Button from "@/components/Button"
 import ItemBox from "@/components/ItemBox"
+import PreLoad from "@/components/PreLoad"
 
 import axios from "axios"
 import { useRoute } from "vue-router"
@@ -61,39 +63,76 @@ export default {
   name: "Produto",
   components: {
     Button,
-    ItemBox
+    ItemBox,
+    PreLoad
   },
   data() {
     return {
+      is_load: false,
       product: null,
       products: null,
-      activeImage: 0
+      activeImage: 0,
+      router: null
+    }
+  },
+  watch: {
+    $route() {
+      this.product = null
+      this.products = null
+      this.activeImage = 0
+
+      this.getProductData()
+      this.getProductsData()
     }
   },
   methods: {
+    getProductData() {
+      const { productId } = this.router.params
+
+      axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products/${productId}`)
+      .then(res => res.data)
+      .then(res => this.product = res)
+      .then(() => this.product.register_date = this.parseDate())
+      .catch(err => console.log(err))
+    },
+    getProductsData() {
+      axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products`)
+      .then(res => res.data)
+      .then(res => {
+        if (res.length > 0) this.products = res.slice(0,4)
+      })
+      .catch(err => console.log(err))
+    },
+    removeProductData() {
+      const { productId } = this.router.params
+
+      axios({
+        method: "DELETE",
+        url: `https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products/${productId}`
+      })
+      .then(res => res.data)
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+    },
     parseDate() {
       const date = new Date()
       let days =  date.getTime() - parseInt(this.product.register_date)
       days = Math.round(days / (1000 * 3600 * 24)) + 1
 
+      if (days > 30) {
+        this.removeProductData()
+      }
+
       return days
     }
   },
   mounted() {
-    const { productId } = useRoute().params
+    this.router = useRoute()
     
-    axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products/${productId}`)
-    .then(res => res.data)
-    .then(res => this.product = res)
-    .then(() => this.product.register_date = this.parseDate())
-    .catch(err => console.log(err))
+    this.getProductData()
+    this.getProductsData()
 
-    axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products`)
-    .then(res => res.data)
-    .then(res => {
-      if (res.length > 0) this.products = res.slice(0,4)
-    })
-    .catch(err => console.log(err))
+    setTimeout(() => this.is_load = true, 2000)
   }
 }
 </script>
