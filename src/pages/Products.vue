@@ -1,5 +1,5 @@
 <template>
-  <section v-if="is_load" class="products__box__container animation__fadeIn">
+  <section v-if="is_load && products.length" class="products__box__container animation__fadeIn">
     <div class="products__box__content mw mh">
       <div class="products__box__items">
         <ItemBox v-for="(product, index) in products" v-bind:key="index" v-bind:product="product" />
@@ -9,6 +9,14 @@
       </div>
     </div>
   </section>
+  <section v-else class="not__found__container animation__fadeIn">
+    <div class="not__found__content mw mh">
+      <p class="title">Opaa</p>
+      <span>Não encontrei nada aqui :c</span>
+      <span>Que tal ter seu produto aqui??</span>
+      <Button to="/anunciar" text="Anuncia ai" round />
+    </div>
+  </section>
 </template>
 
 <script>
@@ -16,11 +24,13 @@ import axios from "axios"
 import { useRoute } from "vue-router"
 
 import ItemBox from "@/components/ItemBox.vue"
+import Button from "@/components/Button.vue"
 
 export default {
   name: "Products",
   components: {
-    ItemBox
+    ItemBox,
+    Button
   },
   data() {
     return {

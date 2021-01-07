@@ -32,6 +32,14 @@
       </div>
     </div>
   </section>
+  <section v-else class="not__found__container animation__fadeIn">
+    <div class="not__found__content mw mh">
+      <p class="title">Opaa</p>
+      <span>Não encontrei nada aqui :c</span>
+      <span>Que tal ter seu produto aqui??</span>
+      <Button to="/anunciar" text="Anuncia ai" round />
+    </div>
+  </section>
   <section v-if="products" class="products__box__container animation__fadeIn">
     <div class="products__box__content mw">
       <h4>Olha mais alguns produtinhos aqui</h4>
@@ -82,7 +90,9 @@ export default {
 
     axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products`)
     .then(res => res.data)
-    .then(res => this.products = res.slice(0,4))
+    .then(res => {
+      if (res.length > 0) this.products = res.slice(0,4)
+    })
     .catch(err => console.log(err))
   }
 }

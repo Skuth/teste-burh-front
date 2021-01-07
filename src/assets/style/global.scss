@@ -1,4 +1,5 @@
 @import "./base/variables";
+@import "./base/functions";
 
 * {
   padding: 0;
@@ -95,5 +96,23 @@ input {
 @media(max-width: 450px) {
   .products__box__container .products__box__content .products__box__items {
     grid-template-columns: 1fr;
+  }
+}
+
+.not__found__container .not__found__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  .title {
+    font-size: em(30);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  > span {
+    margin-top: 5px;
+  }
+  .btn {
+    margin-top: 20px;
   }
 }
