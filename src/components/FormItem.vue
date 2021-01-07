@@ -46,8 +46,8 @@ export default {
     placeholder: String,
     type: String,
     imageList: Array,
-    error: Boolean,
-    btnStatus: Boolean
+    btnStatus: Boolean,
+    error: Boolean
   }
 }
 </script>

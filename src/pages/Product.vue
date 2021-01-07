@@ -103,6 +103,18 @@ export default {
       })
       .catch(err => console.log(err))
     },
+    deleteImg(id) {
+      const apiUrl = `https://api.imgur.com/3/image/${id}`
+
+      return axios({
+        method: "DELETE",
+        url: apiUrl,
+        headers: {
+          "Authorization": `Client-ID ${process.env.VUE_APP_IMGUR_API_KEY}`
+        }
+      })
+      .catch(err => console.log(err))
+    },
     removeProductData() {
       const { productId } = this.router.params
 
@@ -111,7 +123,7 @@ export default {
         url: `https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products/${productId}`
       })
       .then(res => res.data)
-      .then(res => console.log(res))
+      .then(() => this.product.images.map(image => this.deleteImg(image.id)))
       .catch(err => console.log(err))
     },
     parseDate() {
