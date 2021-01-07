@@ -306,7 +306,6 @@ export default {
               contact: this.number,
               description: this.description,
               images: images,
-              is_active: true,
               is_tradeble: this.trade,
               is_deliverable: this.delivery,
               register_date: registerDate.toString()

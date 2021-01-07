@@ -78,12 +78,15 @@ export default {
   },
   watch: {
     $route() {
+      this.is_load = false
       this.product = null
       this.products = null
       this.activeImage = 0
 
       this.getProductData()
       this.getProductsData()
+
+      setTimeout(() => this.is_load = true, 2000)
     }
   },
   methods: {
@@ -100,7 +103,7 @@ export default {
       axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products`)
       .then(res => res.data)
       .then(res => {
-        if (res.length > 0) this.products = res.sort(() => .5 - Math.random()).slice(0,4)
+        if (res.length > 0) this.products = res.filter(item => item._id !== this.product._id).sort(() => .5 - Math.random()).slice(0,4)
       })
       .catch(err => console.log(err))
     },
