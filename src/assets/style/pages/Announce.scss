@@ -1,6 +1,30 @@
 @import "../base/variables";
 @import "../base/functions";
 @import "../base/mixins";
+@import "../components/Button.scss";
+
+@keyframes btnAnimation {
+  0% {
+    background: $defaultAppColor
+  }
+  50% {
+    background: $btnHoverColor;
+  }
+  100% {
+    background: $defaultAppColor;
+  }
+}
+
+@keyframes citySuggestionAnimation {
+  0% {
+    opacity: 0;
+    top: 50%;
+  }
+  100% {
+    opacity: 1;
+    top: 100%;
+  }
+}
 
 .mw {
   max-width: calc(1000px - 20px * 2 - 2px);
@@ -16,12 +40,117 @@
     border: 1px solid $borderColor;
     @include radius();
     @include boxShadow($offset: 0 0, $opacity: 0.05);
-    form {
-      .submit {
-        padding: 20px 0;
-        align-items: flex-end;
+  }
+}
+
+.form__item__group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 10px 0;
+  position: relative;
+  &.checkbox {
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: flex-end;
+    label {
+      margin-left: 10px;
+      user-select: none;
+    }
+  }
+  &.submit {
+    padding: 20px 0;
+    align-items: flex-end;
+    .formSubmit {
+      animation: btnAnimation 2s infinite;
+    }
+  }
+  .form__item__suggestion {
+    position: absolute;
+    background: #ffffff;
+    top: 100%;
+    z-index: 10;
+    width: 100%;
+    border: 1px solid $borderColor;
+    animation: citySuggestionAnimation 1s;
+    @include radius();
+    @include boxShadow($offset: 0 0, $opacity: 0.05);
+    ul li span {
+      display: block;
+      padding: 20px;
+      cursor: pointer;
+      @include transition();
+      &:hover {
+        background: $btnHoverColor;
+        color: $defaultAppColor;
       }
     }
+  }
+  .form__images__preview {
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    img {
+      padding: 20px;
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      object-fit: contain;
+      margin-right: 10px;
+      border: 1px solid $borderColor;
+      @include radius();
+    }
+  }
+  label {
+    font-size: em(16);
+  }
+  input:not([type="checkbox"]), textarea {
+    margin-top: 10px;
+    padding: 20px;
+    outline: none;
+    font-size: em(14);
+    width: calc(100% - 20px * 2);
+    border: 1px solid $borderColor;
+    @include radius();
+  }
+  input[type="checkbox"] {
+    border: 1px solid $borderColor;
+    padding: 8px 16px;
+    outline: none;
+    position: relative;
+    @include radius($all: 100px);
+    @include transition();
+    &::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      background: $textColor;
+      position: absolute;
+      top: 1px;
+      margin-left: -14px;
+      @include radius($all: 100px);
+      @include transition();
+    }
+    &:checked {
+      background: $defaultAppColor;
+      &::before {
+        background: #ffffff;
+        left: inherit;
+        margin-left: 0;
+      }
+    }
+  }
+  textarea {
+    resize: vertical;
+    max-height: 100px;
+    min-height: 50px;
+  }
+  button {
+    outline: none;
+    font-size: em(18);
+    padding: 10px 30px;
   }
 }
 

@@ -1,76 +1,81 @@
 <template>
   <section class="announce__container animation__fadeIn">
     <div class="announce__content mw">
-      <form @submit="submitForm" enctype="multipart/form-data">
-        <FormItem
-          @change="setName"
-          v-bind:error="validation.name"
-          type="text"
-          name="name"
-          placeholder="Insira o nome do produto"
-          label="Qual o nome?"
-        />
+      <form @submit.prevent="submitForm" class="announce__form__content" enctype="multipart/form-data">
+        <div class="form__item__group">
+          <label for="name">Qual o nome?</label>
+          <input v-model="name" id="name" name="name" type="text" placeholder="Insira o nome do produto">
+          
+          <span v-if="validation.name" class="internal__error">Esse campo é obrigatório</span>
+        </div>
 
-        <FormItem
-          @change="setCity"
-          v-bind:error="validation.city"
-          type="text"
-          name="city"
-          placeholder="Insira o nome da cidade"
-          label="Qual a cidade?"
-        />
+        <div class="form__item__group">
+          <label for="city">Qual a cidade?</label>
+          <input v-model="city" id="city" name="city" type="text" autocomplete="off" placeholder="Insira o nome da cidade">
+          
+          <div v-if="citySuggestion && citySuggestion.length" class="form__item__suggestion">
+            <ul>
+              <li
+                v-for="(suggestion, index) in citySuggestion"
+                v-bind:key="index"
+                @click="updateCity(suggestion)"
+              >
+                <span>{{ suggestion.Nome }} - {{ suggestion.Estado }}</span>
+              </li>
+            </ul>
+          </div>
+          
+          <span v-if="validation.city" class="internal__error">Esse campo é obrigatório</span>
+        </div>
 
-        <FormItem
-          @change="setNumber"
-          v-bind:error="validation.number"
-          type="text"
-          name="number"
-          placeholder="Insira o número para contato"
-          label="Qual o seu número?"
-        />
+        <div class="form__item__group">
+          <label for="number">Qual o seu número?</label>
+          <input v-model="number" id="number" name="number" type="number" placeholder="Insira o número para contato">
+          
+          <span v-if="validation.number" class="internal__error">Esse campo é obrigatório</span>
+        </div>
 
-        <FormItem
-          @change="setPrice"
-          v-bind:error="validation.price"
-          type="number"
-          name="price"
-          placeholder="Insira o preçoo"
-          label="Qual o preço?"
-        />
+        <div class="form__item__group">
+          <label for="number">Qual o preço?</label>
+          <input v-model="price" id="price" name="price" type="number" placeholder="Insira o preço">
+          
+          <span v-if="validation.price" class="internal__error">Esse campo é obrigatório</span>
+        </div>
         
-        <FormItem
-          @change="setDescription"
-          v-bind:error="validation.description"
-          type="textarea"
-          name="description"
-          placeholder="Insira a descrição do produto"
-          label="Qual a descrição?"
-        />
+        <div class="form__item__group">
+          <label for="description">Qual a descrição?</label>
+          <textarea v-model="description" id="description" name="description" placeholder="Insira a descrição do produto"></textarea>
 
-        <FormItem
-          @change="setImages"
-          v-bind:error="validation.images"
-          v-bind:imageList="images"
-          type="image"
-          name="images"
-          label="Agora as fotos?"
-        />
+          <span v-if="validation.description" class="internal__error">Esse campo é obrigatório</span>
+        </div>
 
-        <FormItem
-          @change="checkItem('trade')"
-          type="checkbox"
-          name="trade"
-          label="Aceita troca"
-        />
+        <div class="form__item__group">
+          <label for="images">Agora as fotos</label>
+          <input @change="setImages" id="images" name="images" type="file" multiple accept="image/png, image/jpeg" />
 
-        <FormItem
-          @change="checkItem('delivery')"
-          type="checkbox"
-          name="delivery"
-          label="Entrega"
-        />
+          <span v-if="validation.images" class="internal__error">Esse campo é obrigatório</span>
 
-        <FormItem type="submit" v-bind:btnStatus="formSubmit" label="Salvar anuncio" />
+          <div class="form__images__preview">
+            <img width="50" v-for="(url, index) in images" v-bind:key="index" v-bind:src="url" v-bind:alt="'Preview '+index">
+          </div>
+        </div>
+
+        <div class="form__item__group checkbox">
+          <label for="trade">Aceita troca</label>
+          <input v-model="trade" id="trade" name="trade" type="checkbox" />
+        </div>
+
+        <div class="form__item__group checkbox">
+          <label for="delivery">Entrega</label>
+          <input v-model="delivery" id="delivery" name="delivery" type="checkbox" />
+        </div>
+
+        <div class="form__item__group submit">
+          <button type="submit" :disabled="formSubmit" class="btn round" :class={formSubmit}>
+            <p v-if="formSubmit">Enviando</p>
+            <p v-else>Salvar anuncio</p>
+          </button>
+        </div>
         
         <span v-if="internal" class="internal__error">Houve uma falha, tente novamente mais tarde</span>
       </form>
@@ -82,16 +87,10 @@
 import axios from "axios"
 import { useRouter } from "vue-router"
 
-import FormItem from "@/components/FormItem"
-
 export default {
   name: "Announce",
-  components: {
-    FormItem
-  },
   data() {
     return {
-      form: "",
       name: "",
       city: "",
       number: "",
@@ -110,37 +109,86 @@ export default {
       },
       formSubmit: false,
       router: null,
-      internal: false
+      internal: false,
+      stateList: null,
+      cityList: null,
+      citySuggestion: null
+    }
+  },
+  watch: {
+    name(val) {
+      if (val.length > 0) {
+        if (this.validation.name) {
+          this.validation.name = false
+        }
+      } else {
+        this.validation.name = true
+      }
+    },
+    city(val) {
+      if (val.length > 0) {
+        if (this.validation.city) {
+          this.validation.city = false
+        }
+
+        if (val.length >= 5) {
+          let city = this.cityList.filter(data => data.Nome.toLowerCase().includes(val.toLowerCase()))
+          city.map(city => {
+            const state = this.stateList.find(data => data.ID === city.Estado)
+            if (state) city.Estado = state.Sigla
+          })
+          
+          this.citySuggestion = city
+        } else {
+          this.citySuggestion = null
+        }
+      } else {
+        this.validation.city = true
+      }
+    },
+    number(val) {
+      if (val.length > 0) {
+        if (this.validation.number) {
+          this.validation.number = false
+        }
+      } else {
+        this.validation.number = true
+      }
+    },
+    price(val) {
+      if (val.length > 0) {
+        if (this.validation.price) {
+          this.validation.price = false
+        }
+      } else {
+        this.validation.price = true
+      }
+    },
+    description(val) {
+      if (val.length > 0) {
+        if (this.validation.description) {
+          this.validation.description = false
+        }
+      } else {
+        this.validation.description = true
+      }
+    },
+    images(val) {
+      if (val.length >= 0) {
+        if (this.validation.images) {
+          this.validation.images = false
+        }
+      } else {
+        this.validation.images = true
+      }
     }
   },
   methods: {
     goToId(id) {
       this.router.push(`/produto/${id}`)
     },
-    setName(e) {
-      this.name = e.target.value
-      if (this.validation.name) this.validation.name = false
-    },
-    setCity(e) {
-      this.city = e.target.value
-      if (this.validation.city) this.validation.city = false
-    },
-    setNumber(e) {
-      this.number = e.target.value
-      if (this.validation.number) this.validation.number = false
-    },
-    setPrice(e) {
-      this.price = e.target.value
-      if (this.validation.price) this.validation.price = false
-    },
-    setDescription(e) {
-      this.description = e.target.value
-      if (this.validation.description) this.validation.description = false
-    },
     setImages(e) {
       this.images = []
-
-      if (this.validation.images) this.validation.images = false
 
       const $this = this
       const files = e.target.files
@@ -152,9 +200,6 @@ export default {
           $this.images.push(e.target.result)
         }
       })
-    },
-    checkItem(target) {
-      this[target] = !this[target]
     },
     uploadImg(base64) {
       base64 = base64.replace("data:image/png;base64,", "")
@@ -217,14 +262,13 @@ export default {
         })
       })
     },
-    submitForm(e) {
-      e.preventDefault()
+    submitForm() {
 
-      if (this.name === "") this.validation.name = true
-      if (this.city === "") this.validation.city = true
-      if (this.number === "") this.validation.number = true
-      if (this.price === "") this.validation.price = true
-      if (this.description === "") this.validation.description = true
+      if (this.name.length <= 0) this.validation.name = true
+      if (this.city.length <= 0) this.validation.city = true
+      if (this.number.length <= 0) this.validation.number = true
+      if (this.price.length <= 0) this.validation.price = true
+      if (this.description.length <= 0) this.validation.description = true
       if (this.images.length <= 0) this.validation.images = true
 
       if (!this.validation.name, !this.validation.city, !this.validation.number, !this.validation.price, !this.validation.description, !this.validation.images) {
@@ -261,10 +305,23 @@ export default {
           }
         }, 3000)
       }
+    },
+    getCityList() {
+      axios.get("https://raw.githubusercontent.com/felipefdl/cidades-estados-brasil-json/master/Estados.json")
+        .then(res => res.data)
+        .then(res => this.stateList = res)
+
+      axios.get("https://raw.githubusercontent.com/felipefdl/cidades-estados-brasil-json/master/Cidades.json")
+        .then(res => res.data)
+        .then(res => this.cityList = res)
+    },
+    updateCity(city) {
+      this.city = `${city.Nome} - ${city.Estado}`
     }
   },
   mounted() {
     this.router = useRouter()
+    this.getCityList()
   }
 }
 </script>

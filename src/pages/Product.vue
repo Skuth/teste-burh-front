@@ -13,7 +13,8 @@
           <div class="product__info__header">
             <h2 class="title">{{ product.title }}</h2>
             <span class="city">{{ product.city }}</span>
-            <span v-if="product.register_date === 1" class="date">{{product.register_date}} dia atras</span>
+            <span v-if="product.register_date === 0" class="date">Hoje</span>
+            <span v-else-if="product.register_date === 1" class="date">{{product.register_date}} dia atras</span>
             <span v-else class="date">{{product.register_date}} dias atras</span>
           </div>
           <div class="product__info__price">
@@ -99,7 +100,7 @@ export default {
       axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products`)
       .then(res => res.data)
       .then(res => {
-        if (res.length > 0) this.products = res.slice(0,4)
+        if (res.length > 0) this.products = res.sort(() => .5 - Math.random()).slice(0,4)
       })
       .catch(err => console.log(err))
     },
@@ -129,7 +130,7 @@ export default {
     parseDate() {
       const date = new Date()
       let days =  date.getTime() - parseInt(this.product.register_date)
-      days = Math.round(days / (1000 * 3600 * 24)) + 1
+      days = Math.floor(days / (1000 * 3600 * 24))
 
       if (days > 30) {
         this.removeProductData()

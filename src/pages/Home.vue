@@ -44,15 +44,20 @@ export default {
       products: null
     }
   },
+  methods: {
+    getProductsData() {
+      axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products`)
+      .then(res => res.data)
+      .then(res => {
+        if (res.length > 0) {
+          this.products = res.sort(() => .5 - Math.random()).slice(0,8)
+        }
+      })
+      .catch(err => console.log(err))
+    }
+  },
   mounted() {
-    axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products`)
-    .then(res => res.data)
-    .then(res => {
-      if (res.length > 0) {
-        this.products = res.slice(0,8)
-      }
-    })
-    .catch(err => console.log(err))
+    this.getProductsData()
   }
 }
 </script>
