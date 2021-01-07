@@ -53,6 +53,12 @@
           .city {
             font-size: em(18);
             font-weight: lighter;
+            display: block;
+          }
+          .date {
+            font-size: em(14);
+            font-weight: lighter;
+            display: block;
           }
         }
         .product__info__price {

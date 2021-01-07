@@ -1,7 +1,8 @@
 <template>
   <router-link v-if="product && product.is_active" v-bind:to="'/produto/'+product._id" class="item__box">
     <div class="item__picture">
-      <img v-bind:src="product.images[0].url" v-bind:alt="product.title">
+      <img v-if="product.images[0]" v-bind:src="product.images[0].url" v-bind:alt="product.title">
+      <img v-else src="https://bit.ly/3hQQLQ5" v-bind:alt="product.title">
     </div>
     <div class="item__info">
       <div class="item__info__header">
@@ -30,15 +31,14 @@ export default {
       city: String,
       price: Number,
       contact: String,
-      descriptions: String,
+      description: String,
       images: Array({
         url: String
       }),
-      contact_clicks: Number,
       is_active: Boolean,
       is_tradeble: Boolean,
       is_deliverable: Boolean,
-      expire_date: String
+      register_date: String
     }
   }
 }

@@ -3,7 +3,8 @@
     <div class="product__content mw">
       <div class="product__content__info">
         <div class="product__images">
-          <img v-bind:src="product.images[activeImage].url" v-bind:alt="product.title" class="center">
+          <img v-if="product.images[activeImage]" v-bind:src="product.images[activeImage].url" v-bind:alt="product.title" class="center">
+          <img v-else src="https://bit.ly/3hQQLQ5" v-bind:alt="product.title" class="center">
           <div class="thumbnails">
             <img v-for="(image, index) in product.images" v-bind:src="image.url" v-bind:key="index" v-bind:alt="product.title+' imagem '+index" @click="activeImage = index">
           </div>
@@ -12,6 +13,8 @@
           <div class="product__info__header">
             <h2 class="title">{{ product.title }}</h2>
             <span class="city">{{ product.city }}</span>
+            <span v-if="product.register_date === 1" class="date">{{product.register_date}} dia atras</span>
+            <span v-else class="date">{{product.register_date}} dias atras</span>
           </div>
           <div class="product__info__price">
             <span>R$ <span class="price">{{ product.price }}</span></span>
@@ -59,12 +62,22 @@ export default {
       activeImage: 0
     }
   },
+  methods: {
+    parseDate() {
+      const date = new Date()
+      let days =  date.getTime() - parseInt(this.product.register_date)
+      days = Math.round(days / (1000 * 3600 * 24)) + 1
+
+      return days
+    }
+  },
   mounted() {
     const { productId } = useRoute().params
     
     axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products/${productId}`)
     .then(res => res.data)
     .then(res => this.product = res)
+    .then(() => this.product.register_date = this.parseDate())
     .catch(err => console.log(err))
 
     axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products`)

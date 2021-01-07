@@ -121,7 +121,10 @@ export default {
       axios({
         method: "POST",
         url: proxyUrl+apiUrl,
-        data
+        data,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+        },
       })
       .then(res => res.data)
       .then(res => {
@@ -146,8 +149,7 @@ export default {
       if (!this.nameError, !this.cityError, !this.numberError, !this.priceError, !this.descriptionError, !this.imagesError) {
         this.formSubmite = true
 
-        let expireDate = new Date()
-        expireDate.setMonth(expireDate.getMonth() + 1)
+        let registerDate = new Date().getTime()
 
         let images = []
 
@@ -169,7 +171,7 @@ export default {
             is_active: true,
             is_tradeble: this.trade,
             is_deliverable: this.delivery,
-            expire_date: expireDate
+            register_date: registerDate.toString()
           })
         }, 3000)
       }
