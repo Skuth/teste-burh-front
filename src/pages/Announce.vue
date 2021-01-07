@@ -11,7 +11,7 @@
 
         <div class="form__item__group">
           <label for="city">Qual a cidade?</label>
-          <input v-model="city" id="city" name="city" type="text" autocomplete="off" placeholder="Insira o nome da cidade">
+          <input v-model="city" id="city" name="city" type="text" autocomplete="random" placeholder="Insira o nome da cidade">
           
           <div v-if="citySuggestion && citySuggestion.length" class="form__item__suggestion">
             <ul>
