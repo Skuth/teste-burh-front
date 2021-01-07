@@ -118,6 +118,9 @@
       }
       .navbar__right {
         justify-content: space-between;
+        .navbar__button {
+          margin: 0;
+        }
       }
     }
   }
