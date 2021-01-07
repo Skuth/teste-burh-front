@@ -45,6 +45,7 @@
       }
       .product__info {
         padding: 0 20px;
+        width: calc(100% - 20px * 2);
         .product__info__header {
           .title {
             font-size: em(30);

@@ -10,7 +10,7 @@
         <FormItem @change="setImages" v-bind:error="imagesError" v-bind:imageList="images" type="image" name="images" label="Agora as fotos?" />
         <FormItem @change="checkItem('trade')" type="checkbox" name="trade" label="Aceita troca" />
         <FormItem @change="checkItem('delivery')" type="checkbox" name="delivery" label="Entrega" />
-        <FormItem type="submit" v-bind:btnStatus="formSubmite" label="Salvar anuncio" />
+        <FormItem type="submit" v-bind:btnStatus="formSubmit" label="Salvar anuncio" />
         <span v-if="internal" class="internal__error">Houve uma falha, tente novamente mais tarde</span>
       </form>
     </div>
@@ -44,7 +44,7 @@ export default {
       priceError: false,
       descriptionError: false,
       imagesError: false,
-      formSubmite: false,
+      formSubmit: false,
       router: null,
       internal: false
     }
@@ -128,11 +128,11 @@ export default {
       })
       .then(res => res.data)
       .then(res => {
-        this.formSubmite = false
+        this.formSubmit = false
         this.goToId(res._id)
       })
       .catch(() => {
-        this.formSubmite = false
+        this.formSubmit = false
         this.internal = true
       })
     },
@@ -147,7 +147,7 @@ export default {
       if (this.images.length <= 0) this.imagesError = true
 
       if (!this.nameError, !this.cityError, !this.numberError, !this.priceError, !this.descriptionError, !this.imagesError) {
-        this.formSubmite = true
+        this.formSubmit = true
 
         let registerDate = new Date().getTime()
 
@@ -158,11 +158,10 @@ export default {
           .then(res => {
             images.push({url: res.data.link})
           })
-          .catch(() => this.internal = true)
         })
 
         setTimeout(() => {
-          if (!this.internal) {
+          if (images.length > 0) {
             this.uploadData({
               title: this.name,
               city: this.city,
@@ -175,6 +174,9 @@ export default {
               is_deliverable: this.delivery,
               register_date: registerDate.toString()
             })
+          } else {
+            this.internal = true
+            this.formSubmit = false
           }
         }, 3000)
       }
