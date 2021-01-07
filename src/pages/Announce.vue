@@ -158,21 +158,24 @@ export default {
           .then(res => {
             images.push({url: res.data.link})
           })
+          .catch(() => this.internal = true)
         })
 
         setTimeout(() => {
-          this.uploadData({
-            title: this.name,
-            city: this.city,
-            price: this.price,
-            contact: this.number,
-            description: this.description,
-            images: images,
-            is_active: true,
-            is_tradeble: this.trade,
-            is_deliverable: this.delivery,
-            register_date: registerDate.toString()
-          })
+          if (!this.internal) {
+            this.uploadData({
+              title: this.name,
+              city: this.city,
+              price: this.price,
+              contact: this.number,
+              description: this.description,
+              images: images,
+              is_active: true,
+              is_tradeble: this.trade,
+              is_deliverable: this.delivery,
+              register_date: registerDate.toString()
+            })
+          }
         }, 3000)
       }
     }
