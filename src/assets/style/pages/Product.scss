@@ -16,10 +16,12 @@
         flex-direction: column;
         align-items: center;
         .center {
-          width: calc(90% - 50px * 2);
-          padding: 50px;
+          width: calc(90% - 30px * 2);
+          padding: 30px;
           background: #ffffff;
           border: 1px solid $borderColor;
+          max-height: 400px;
+          object-fit: contain;
           @include radius();
           @include boxShadow($offset: 0 0, $opacity: 0.05);
         }
