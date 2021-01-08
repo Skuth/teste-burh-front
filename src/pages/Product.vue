@@ -53,12 +53,12 @@
 </template>
 
 <script>
+import api from "@/services/api.js"
+import { useRoute } from "vue-router"
+
 import Button from "@/components/Button"
 import ItemBox from "@/components/ItemBox"
 import PreLoad from "@/components/PreLoad"
-
-import axios from "axios"
-import { useRoute } from "vue-router"
 
 export default {
   name: "Produto",
@@ -93,51 +93,24 @@ export default {
     getProductData() {
       const { productId } = this.router.params
 
-      axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products/${productId}`)
+      api.get(`products/${productId}`)
       .then(res => res.data)
       .then(res => this.product = res)
       .then(() => this.product.register_date = this.parseDate())
       .catch(err => console.log(err))
     },
     getProductsData() {
-      axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products`)
+      api.get("products")
       .then(res => res.data)
       .then(res => {
         if (res.length > 0) this.products = res.filter(item => item._id !== this.product._id).sort(() => .5 - Math.random()).slice(0,4)
       })
       .catch(err => console.log(err))
     },
-    deleteImg(id) {
-      const apiUrl = `https://api.imgur.com/3/image/${id}`
-
-      return axios({
-        method: "DELETE",
-        url: apiUrl,
-        headers: {
-          "Authorization": `Client-ID ${process.env.VUE_APP_IMGUR_API_KEY}`
-        }
-      })
-      .catch(err => console.log(err))
-    },
-    removeProductData() {
-      const { productId } = this.router.params
-
-      axios({
-        method: "DELETE",
-        url: `https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products/${productId}`
-      })
-      .then(res => res.data)
-      .then(() => this.product.images.map(image => this.deleteImg(image.id)))
-      .catch(err => console.log(err))
-    },
     parseDate() {
       const date = new Date()
       let days =  date.getTime() - parseInt(this.product.register_date)
       days = Math.floor(days / (1000 * 3600 * 24))
-
-      if (days > 30) {
-        this.removeProductData()
-      }
 
       return days
     }

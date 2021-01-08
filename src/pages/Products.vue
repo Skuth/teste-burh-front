@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import axios from "axios"
+import api from "@/services/api.js"
 import { useRoute } from "vue-router"
 
 import ItemBox from "@/components/ItemBox.vue"
@@ -60,7 +60,7 @@ export default {
       this.getData()
     },
     getData() {
-      axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products`)
+      api.get("products")
         .then(res => res.data)
         .then(res => {
           let start = (this.pagina - 1)

@@ -84,6 +84,8 @@
 </template>
 
 <script>
+import api from "@/services/api.js"
+import imgur from "@/services/imgur.js"
 import axios from "axios"
 import { useRouter } from "vue-router"
 
@@ -217,48 +219,16 @@ export default {
       base64 = base64.replace("data:image/png;base64,", "")
       base64 = base64.replace("data:image/jpeg;base64,", "")
 
-      const apiUrl = "https://api.imgur.com/3/image"
-
-      return axios({
-        method: "POST",
-        url: apiUrl,
-        data: {
-          image: base64
-        },
-        headers: {
-          "Authorization": `Client-ID ${process.env.VUE_APP_IMGUR_API_KEY}`
-        }
-      })
+      return imgur.post(base64)
       .then(res => res.data)
-      .then(res => {
-        return res
-      })
       .catch(err => console.log(err))
     },
     deleteImg(id) {
-      const apiUrl = `https://api.imgur.com/3/image/${id}`
-
-      return axios({
-        method: "DELETE",
-        url: apiUrl,
-        headers: {
-          "Authorization": `Client-ID ${process.env.VUE_APP_IMGUR_API_KEY}`
-        }
-      })
+      imgur.delete(id)
       .catch(err => console.log(err))
     },
     uploadData(data) {
-      const apiUrl = `https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products`
-      const proxyUrl = "https://cors-anywhere.herokuapp.com/"
-
-      axios({
-        method: "POST",
-        url: proxyUrl+apiUrl,
-        data,
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-        },
-      })
+      api.post("products", data)
       .then(res => res.data)
       .then(res => {
         this.formSubmit = false
@@ -275,7 +245,6 @@ export default {
       })
     },
     submitForm() {
-
       if (this.name.length <= 0) this.validation.name = true
       if (this.city.length <= 0) this.validation.city = true
       if (this.number.length <= 0) this.validation.number = true

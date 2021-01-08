@@ -25,11 +25,19 @@
       <router-link to="produtos">Ver mais produtos</router-link>
     </div>
   </section>
-  <PreLoad v-else />
+  <PreLoad v-else-if="!is_load" />
+  <section v-else-if="is_load" class="not__found__container animation__fadeIn">
+    <div class="not__found__content mw mh">
+      <p class="title">Opaa</p>
+      <span>Não encontrei nada aqui :c</span>
+      <span>Que tal ter seu produto aqui??</span>
+      <Button to="/anunciar" text="Anuncia ai" round />
+    </div>
+  </section>
 </template>
 
 <script>
-import axios from "axios"
+import api from "@/services/api.js"
 
 import Button from "@/components/Button"
 import ItemBox from "@/components/ItemBox"
@@ -50,7 +58,7 @@ export default {
   },
   methods: {
     getProductsData() {
-      axios.get(`https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_ENDPOINT}/products`)
+      api.get("products")
       .then(res => res.data)
       .then(res => {
         if (res.length > 0) {
