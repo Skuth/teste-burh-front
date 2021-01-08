@@ -2,7 +2,7 @@
   <section v-if="is_load && products.length" class="products__box__container animation__fadeIn">
     <div class="products__box__content mw mh">
       <div class="products__box__items">
-        <ItemBox class="animation__fadeIn" v-for="(product, index) in products" v-bind:key="index" v-bind:product="product" />
+        <ItemBox v-for="(product, index) in products" v-bind:key="index" v-bind:product="product" />
       </div>
       <div v-if="btnShow" class="button__container">
         <button @click="btnHandleClick" class="btn round">Carregar mais</button>
