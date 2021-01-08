@@ -5,7 +5,7 @@
         <ItemBox v-for="(product, index) in products" v-bind:key="index" v-bind:product="product" />
       </div>
       <div v-if="btnShow" class="button__container">
-        <button @click="btnHandleClick" class="btn round">Carregar mais</button>
+        <button @click="btnHandleClick" :disabled="btn_load" class="btn round" :class="{btn_load}">Carregar mais</button>
       </div>
     </div>
   </section>
@@ -28,6 +28,8 @@ import ItemBox from "@/components/ItemBox.vue"
 import Button from "@/components/Button.vue"
 import PreLoad from "@/components/PreLoad.vue"
 
+// TODO: Add load animation btn
+
 export default {
   name: "Products",
   components: {
@@ -42,7 +44,8 @@ export default {
       products: [],
       btnShow: true,
       router: null,
-      search: null
+      search: null,
+      btn_load: false
     }
   },
   watch: {
@@ -56,11 +59,12 @@ export default {
   methods: {
     btnHandleClick() {
       this.pagina ++
-
+      this.btn_load = true
       this.getData()
+      .then(() => this.btn_load = false)
     },
     getData() {
-      api.get("products")
+      return api.get("products")
         .then(res => res.data)
         .then(res => {
           let start = (this.pagina - 1)
@@ -83,12 +87,12 @@ export default {
     }
   },
   mounted() {
-    this.getData()
 
     this.router = useRoute()
     this.getParam()
 
-    setTimeout(() => this.is_load = true, 2000)
+    this.getData()
+    .then(() => this.is_load = true)
   }
 }
 </script>

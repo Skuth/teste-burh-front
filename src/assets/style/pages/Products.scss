@@ -3,12 +3,27 @@
 @import "../base/mixins";
 @import "../components/Button.scss";
 
+@keyframes btnAnimation {
+  0% {
+    background: $defaultAppColor
+  }
+  50% {
+    background: $btnHoverColor;
+  }
+  100% {
+    background: $defaultAppColor;
+  }
+}
+
 .button__container {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  button {
+  .btn {
     outline: none;
+    &.btn_load {
+      animation: btnAnimation 2s infinite;
+    }
   }
 }

@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     getProductsData() {
-      api.get("products")
+      return api.get("products")
       .then(res => res.data)
       .then(res => {
         if (res.length > 0) {
@@ -70,8 +70,7 @@ export default {
   },
   mounted() {
     this.getProductsData()
-
-    setTimeout(() => this.is_load = true, 2000)
+    .then(() => this.is_load = true)
   }
 }
 </script>

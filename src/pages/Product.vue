@@ -97,14 +97,14 @@ export default {
     getProductData() {
       const { productId } = this.router.params
 
-      api.get(`products/${productId}`)
+      return api.get(`products/${productId}`)
       .then(res => res.data)
       .then(res => this.product = res)
       .then(() => this.product.register_date = this.parseDate())
       .catch(err => console.log(err))
     },
     getProductsData() {
-      api.get("products")
+      return api.get("products")
       .then(res => res.data)
       .then(res => {
         if (res.length > 0) this.products = res.filter(item => item._id !== this.product._id).sort(() => .5 - Math.random()).slice(0,4)
@@ -123,9 +123,10 @@ export default {
     this.router = useRoute()
     
     this.getProductData()
-    this.getProductsData()
-
-    setTimeout(() => this.is_load = true, 2000)
+    .then(() => {
+      this.getProductsData()
+      .then(() => this.is_load = true)
+    })
   }
 }
 </script>
