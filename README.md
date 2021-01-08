@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img alt="Trasell" title="#trasell" src=".github/trasell-logo.png" width="250px" />
+    <img alt="Trasell" title="#trasell" src=".github/trasell-logo.png" width="150px" />
 </h1>
 
 <h4 align="center">
