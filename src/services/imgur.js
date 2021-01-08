@@ -7,7 +7,7 @@ const instance = axios.create({
   }
 })
 
-const api = {
+const imgur = {
   post(data) {
     return instance.post("", data)
   },
@@ -16,4 +16,4 @@ const api = {
   }
 }
 
-export default api
+export default imgur
