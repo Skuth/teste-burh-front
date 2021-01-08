@@ -249,7 +249,7 @@ export default {
         const data = {
           from: "Trasell",
           to: `+55${contact}`,
-          content: "Trasell - Seu produto foi anunciado, essa mensagem é só para lembrar que ele tem duração de 7 dias, boa sorte :)"
+          content: "Trasell - Seu produto foi anunciado, essa mensagem é para lembrar que o anuncio expira em 7 dias, boa sorte :)"
         }
         sms.send(data)
         .catch(err => console.log(err))
