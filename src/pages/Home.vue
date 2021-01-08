@@ -1,6 +1,6 @@
 <template>
   <header class="header__container animation__fadeIn">
-    <div class="header__content mw mh">
+    <div class="header__content mw">
       <div class="header__left">
         <h2>Não usa mais?</h2>
         <p>Que tal vender rapidinho e com poucos cliques?</p>
@@ -15,7 +15,7 @@
       </div>
     </div>
   </header>
-  <section v-if="products" class="products__box__container animation__fadeIn">
+  <section v-if="is_load && products" class="products__box__container animation__fadeIn">
     <div class="products__box__content mw">
       <div class="products__box__items">
         <ItemBox v-for="(product, index) in products" v-bind:key="index" v-bind:product="product" />
@@ -25,6 +25,7 @@
       <router-link to="produtos">Ver mais produtos</router-link>
     </div>
   </section>
+  <PreLoad v-else />
 </template>
 
 <script>
@@ -32,15 +33,18 @@ import axios from "axios"
 
 import Button from "@/components/Button"
 import ItemBox from "@/components/ItemBox"
+import PreLoad from "@/components/PreLoad"
 
 export default {
   name: 'Home',
   components: {
     Button,
-    ItemBox
+    ItemBox,
+    PreLoad
   },
   data() {
     return {
+      is_load: false,
       products: null
     }
   },
@@ -58,6 +62,8 @@ export default {
   },
   mounted() {
     this.getProductsData()
+
+    setTimeout(() => this.is_load = true, 2000)
   }
 }
 </script>

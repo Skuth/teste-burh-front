@@ -7,6 +7,7 @@
   .header__content {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    min-height: 500px;
   }
   .header__left, .header__right {
     height: 100%;
