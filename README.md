@@ -41,7 +41,27 @@ O Trasell é um projeto que visa facilitar a venda de coisas que você não usa 
 
 Você pode baixar o layout do projeto no formato `.xd` através [desse link](.github/burh-project.xd).
 
+## 👨‍💻 Como usar
 
+- Necessário [Node.js](https://nodejs.org/en/)
+
+- Clonar este respositório:
+  ```
+  $ git clone https://github.com/Skuth/teste-burh-front
+  ```
+- Instale as dependências:
+  ```
+  $ npm install
+  ```
+- Crie e configure o arquivo [.env](.env.example)
+- Inicie o servidor:
+  ```
+  $ npm run server 
+  ```
+- Acesse pelo navegador o caminho:
+  ```
+  http://localhost:8080/
+  ```
 
 ## 📝 Licença
 
