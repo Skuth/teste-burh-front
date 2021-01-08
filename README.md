@@ -56,7 +56,7 @@ Você pode baixar o layout do projeto no formato `.xd` através [desse link](.gi
 - Crie e configure o arquivo [.env](.env.example)
 - Inicie o servidor:
   ```
-  $ npm run server 
+  $ npm run serve
   ```
 - Acesse pelo navegador o caminho:
   ```
