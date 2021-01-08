@@ -1,52 +1,48 @@
-# BURH: Teste prático para Frontend
+<h1 align="center">
+    <img alt="Trasell" title="#trasell" src=".github/trasell-logo.png" width="250px" />
+</h1>
 
-Este será o teste usado para avaliar os candidatos a vaga de frontend Júnior/Pleno da [Burh](http://burh.com.br). Se você estiver participando de um processo seletivo para nossa equipe, certamente em algum momento receberá este link, mas caso você tenha chego aqui "por acaso", sinta-se convidado a desenvolver nosso teste e enviar uma mensagem para nós no e-mail `jorge@burh.com.br`. 
+<h4 align="center">
+  Teste Burh Front-End
+</h4>
+<p align="center">
+  <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/Skuth/teste-burh-front">
 
-## Instruções
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/Skuth/teste-burh-front">
 
-Você deverá criar um `fork` deste projeto, e desenvolver em cima do seu fork. Use o *README* principal do seu repositório para nos contar como foi resolver seu teste, as decisões tomadas, como você organizou e separou seu código, e <b>principalmente</b> as instruções de como rodar seu projeto e o <b>seu link do perfil do Burh</b>, sem ele não conseguiremos te encontrar para passar o feedback.
+  <img alt="License" src="https://img.shields.io/badge/license-MIT-brightgreen">
+</p>
 
-Lembre-se que este é um teste técnico e não um concurso público, portanto, não existe apenas uma resposta correta. Mostre que você é bom e nos impressione, mas não esqueça do objetivo do projeto. 
+<br>
 
-O desafio deverá ser concluído até o dia 11/01/2021 ao meio dia, só serão contabilizados commits até essa data.
+<p align="center">
+  <img alt="Frontend" src=".github/trasell.png" width="100%">
+</p>
 
-## O desafio
+## 🔭 Burh
 
-Você irá construir um crud sobre o que desejar, usando as [APIs do crducrud](https://crudcrud.com/) . O crud deverá ter campos dos tipos texto, numérico, data e booleano.
+Esse é o meu perfil no Burh:
 
-A interface fica por sua conta, use a criatividade, desenvolva algo bonito e usual.
+- [Flávio Gomes](https://burh.com.br/flaviogomes10)
 
-### O que nós esperamos do seu teste
+## 📋 Tecnologias
 
-* Ver na solução a utilização do framework VueJS.
-* Tambér ver a utilização de dependency managers (npm, webpack)
-* Um HTML escrito da maneira mais semântica possível (HTML5/5.1)
-* CSS3/4 - Com um pré processador de CSS (a escolha fica a seu critério, mas por aqui utilizamos SASS)
-* Mobile first e layout responsivo
+Esse projeto foi desenvolvido com as seguintes tecnologias:
 
-### O que nós ficaríamos felizes de ver em seu teste
+- [Node.js](https://nodejs.org/en/)
+- [Vue.js](https://v3.vuejs.org/)
+- [Sass](https://sass-lang.com/)
 
-* Validação de campos e tratamento de erros
+## 💻 Projeto
 
-### O que nos impressionaria
+O Trasell é um projeto que visa facilitar a venda de coisas que você não usa mais, no Trasell você pode anunciar de forma rápida e fácil, com apenas alguns cliques.
 
-* [BEM naming convention](http://getbem.com/naming/)
-* Aplicação de animações em css quando possível e tome cuidado com a performance da sua animação :)
-* Ver o código rodando live (Bucket estático S3, Heroku, Firebase Hosting ou qualquer outro host)
+## 🔖 Layout
 
-### O que nós não gostaríamos
+Você pode baixar o layout do projeto no formato `.xd` através [desse link](.github/burh-project.xd).
 
-* Descobrir que não foi você quem fez seu teste
-* Ver commits grandes, sem muita explicação nas mensagens em seu repositório 
-* Encontrar um commit com as dependências de NPM
 
-## O que avaliaremos em seu teste
 
-* Histórico de commits do git
-* As instruções de como rodar o projeto
-* Organização, semântica, estrutura, legibilidade, manutenibilidade do seu código
-* Alcance dos objetivos propostos
-* Adaptação mobile (layout responsivo)
-* Componentização e extensibilidade dos componentes
+## 📝 Licença
 
-Boa sorte!
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para mais detalhes.
