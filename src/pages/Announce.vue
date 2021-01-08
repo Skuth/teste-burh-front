@@ -86,6 +86,7 @@
 <script>
 import api from "@/services/api.js"
 import imgur from "@/services/imgur.js"
+import sms from "@/services/sms.js"
 import axios from "axios"
 import { useRouter } from "vue-router"
 
@@ -228,7 +229,7 @@ export default {
       .catch(err => console.log(err))
     },
     uploadData(data) {
-      api.post("products", data)
+      return api.post("products", data)
       .then(res => res.data)
       .then(res => {
         this.formSubmit = false
@@ -239,10 +240,20 @@ export default {
         this.internal = true
 
         data.images.forEach(image => {
-          console.log(image)
           this.deleteImg(image.id)
         })
       })
+    },
+    sendSms(contact) {
+      if (contact.length === 10 || contact.length === 11) {
+        const data = {
+          from: "Trasell",
+          to: `+55${contact}`,
+          content: "Trasell - Seu produto foi anunciado, essa mensagem é só para lembrar que ele tem duração de 7 dias, boa sorte :)"
+        }
+        sms.send(data)
+        .catch(err => console.log(err))
+      }
     },
     submitForm() {
       if (this.name.length <= 0) this.validation.name = true
@@ -278,6 +289,9 @@ export default {
               is_tradeble: this.trade,
               is_deliverable: this.delivery,
               register_date: registerDate.toString()
+            })
+            .then(() => {
+              this.sendSms(this.number)
             })
           } else {
             this.internal = true

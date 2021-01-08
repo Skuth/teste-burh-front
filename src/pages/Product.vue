@@ -83,8 +83,12 @@ export default {
       this.products = null
       this.activeImage = 0
 
-      this.getProductData()
-      this.getProductsData()
+      const { productId } = this.router.params
+
+      if (typeof productId !== "undefined") {
+        this.getProductData()
+        this.getProductsData()
+      }
 
       setTimeout(() => this.is_load = true, 2000)
     }
