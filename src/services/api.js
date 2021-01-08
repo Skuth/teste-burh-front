@@ -1,7 +1,7 @@
 import axios from "axios"
 
 const instance = axios.create({
-  baseURL: `https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_KEY}/`
+  baseURL: `https://crudcrud.com/api/${process.env.VUE_APP_CRUDCRUD_API_KEY}/`
 })
 
 const api = {
