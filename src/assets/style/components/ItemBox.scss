@@ -57,16 +57,18 @@
     }
     .item__info__footer {
       padding: 10px 0;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
       p {
+        display: inline-block;
+        margin-top: 10px;
         margin-right: 10px;
         font-size: em(14);
         padding: 5px 10px;
         border: 2px solid $defaultAppColor;
         color: $defaultAppColor;
         @include radius($all: 100px);
+        span {
+          margin-left: 5px;
+        }
       }
     }
   }

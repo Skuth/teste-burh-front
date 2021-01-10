@@ -13,8 +13,14 @@
         <span>R$ <span class="price">{{ product.price }}</span></span>
       </div>
       <div class="item__info__footer">
-        <p v-if="product.is_deliverable">Entrega</p>
-        <p v-if="product.is_tradeble">Aceita troca</p>
+        <p v-if="product.is_deliverable">
+          <font-awesome-icon icon="truck" />
+          <span>Entrega</span>
+        </p>
+        <p v-if="product.is_tradeble">
+          <font-awesome-icon icon="handshake" />
+          <span>Aceita troca</span>
+        </p>
       </div>
     </div>
   </router-link>

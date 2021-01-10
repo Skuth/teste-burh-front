@@ -82,8 +82,9 @@
         }
         .product__info__extra {
           padding: 20px 0;
-          display: flex;
           p {
+            display: inline-block;
+            margin-top: 10px;
             margin-right: 10px;
             padding: 10px 20px;
             border: 2px solid $defaultAppColor;
@@ -91,6 +92,9 @@
             user-select: none;
             cursor: default;
             @include radius($all: 100px);
+            span {
+              margin-left: 5px;
+            }
           }
         }
         .product__info__description {

@@ -22,8 +22,14 @@
           </div>
           <Button external v-bind:to="'https://api.whatsapp.com/send/?phone=55'+product.contact+'&text=Opa, estava dando uma olhada no *Trasell* e vi que está vendendo *'+product.title+'*, tenho interesse em comprar!'" text="Opa, eu quero" round />
           <div class="product__info__extra">
-            <p v-if="product.is_deliverable">Entrega</p>
-            <p v-if="product.is_tradeble">Aceita troca</p>
+            <p v-if="product.is_deliverable">
+              <font-awesome-icon icon="truck" />
+              <span>Entrega</span>
+              </p>
+            <p v-if="product.is_tradeble">
+              <font-awesome-icon icon="handshake" />
+              <span>Aceita troca</span>
+            </p>
           </div>
           <div class="product__info__description">
             <h3>Descrição</h3>
