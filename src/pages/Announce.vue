@@ -153,7 +153,7 @@ export default {
       }
     },
     number(val) {
-      this.number = this.number.toLowerCase().replace("e", "")
+      this.number = parseInt(this.number)
       
       if (val.length > 0) {
         if (this.validation.number) {
@@ -164,6 +164,8 @@ export default {
       }
     },
     price(val) {
+      this.price = parseInt(this.price)
+
       if (val.length > 0) {
         if (this.validation.price) {
           this.validation.price = false
