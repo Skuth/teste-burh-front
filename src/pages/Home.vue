@@ -65,7 +65,6 @@ export default {
           this.products = res.sort(() => .5 - Math.random()).slice(0,8)
         }
       })
-      .catch(err => console.log(err))
     }
   },
   mounted() {

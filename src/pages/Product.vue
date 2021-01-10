@@ -101,7 +101,6 @@ export default {
       .then(res => res.data)
       .then(res => this.product = res)
       .then(() => this.product.register_date = this.parseDate())
-      .catch(err => console.log(err))
     },
     getProductsData() {
       return api.get("products")
@@ -109,7 +108,6 @@ export default {
       .then(res => {
         if (res.length > 0) this.products = res.filter(item => item._id !== this.product._id).sort(() => .5 - Math.random()).slice(0,4)
       })
-      .catch(err => console.log(err))
     },
     parseDate() {
       const date = new Date()

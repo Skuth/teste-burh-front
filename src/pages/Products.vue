@@ -28,8 +28,6 @@ import ItemBox from "@/components/ItemBox.vue"
 import Button from "@/components/Button.vue"
 import PreLoad from "@/components/PreLoad.vue"
 
-// TODO: Add load animation btn
-
 export default {
   name: "Products",
   components: {
@@ -75,7 +73,6 @@ export default {
 
           if ((8 * this.pagina) > res.length) this.btnShow = false
         })
-        .catch(err => console.log(err))
     },
     getParam() {
       const { pesquisa } = this.router.query

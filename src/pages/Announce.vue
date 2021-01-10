@@ -229,11 +229,9 @@ export default {
 
       return imgur.post(base64)
       .then(res => res.data)
-      .catch(err => console.log(err))
     },
     deleteImg(id) {
       imgur.delete(id)
-      .catch(err => console.log(err))
     },
     uploadData(data) {
       return api.post("products", data)
@@ -259,7 +257,6 @@ export default {
           content: "Trasell - Seu produto foi anunciado, essa mensagem é para lembrar que o anuncio expira em 7 dias, boa sorte :)"
         }
         sms.send(data)
-        .catch(err => console.log(err))
       }
     },
     submitForm() {
