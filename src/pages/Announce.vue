@@ -32,7 +32,10 @@
           <label for="number">Qual o seu número?</label>
           <input v-model="number" id="number" name="number" type="number" placeholder="Insira o número para contato">
           
-          <span v-if="validation.number" class="internal__error">Esse campo é obrigatório</span>
+          <span v-if="validation.number" class="internal__error">
+            <span v-if="number.length === 0">Esse campo é obrigatório</span>
+            <span v-else-if="number.length < 10 || number.length > 11">Informe um número válido para contato</span>
+          </span>
         </div>
 
         <div class="form__item__group">
@@ -150,6 +153,8 @@ export default {
       }
     },
     number(val) {
+      this.number = this.number.toLowerCase().replace("e", "")
+      
       if (val.length > 0) {
         if (this.validation.number) {
           this.validation.number = false
@@ -259,6 +264,7 @@ export default {
       if (this.name.length <= 0) this.validation.name = true
       if (this.city.length <= 0) this.validation.city = true
       if (this.number.length <= 0) this.validation.number = true
+      if (this.number.length < 10 || this.number.length > 10) this.validation.number = true
       if (this.price.length <= 0) this.validation.price = true
       if (this.description.length <= 0) this.validation.description = true
       if (this.images.length <= 0) this.validation.images = true
