@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="products__see__more mw">
-      <router-link to="produtos">Ver mais produtos</router-link>
+      <router-link to="produtos">Ver mais produtos <font-awesome-icon icon="arrow-right" /></router-link>
     </div>
   </section>
   <PreLoad v-else-if="!is_load" />

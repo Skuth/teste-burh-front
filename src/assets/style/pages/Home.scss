@@ -54,6 +54,18 @@
     a {
       color: $defaultAppColor;
       font-size: em(18);
+      font-weight: bold;
+      &:hover {
+        svg {
+          margin-left: 5px;
+          opacity: 1;
+        }
+      }
+      svg {
+        margin-left: -15px;
+        opacity: 0;
+        @include transition($delay: 0.4s);
+      }
     }
   }
 }
