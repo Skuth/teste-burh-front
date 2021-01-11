@@ -29,11 +29,12 @@
         </div>
 
         <div class="form__item__group">
+
           <label for="number">Qual o seu número?</label>
           <input v-model="number" id="number" name="number" type="number" placeholder="Insira o número para contato">
-          
+
           <span v-if="validation.number" class="internal__error">
-            <span v-if="number.length === 0">Esse campo é obrigatório</span>
+            <span v-if="number.length <= 0">Esse campo é obrigatório</span>
             <span v-else-if="number.length < 10 || number.length > 11">Informe um número válido para contato</span>
           </span>
         </div>
@@ -53,14 +54,17 @@
         </div>
 
         <div class="form__item__group">
-          <label for="images">Agora as fotos</label>
-          <input @change="setImages" id="images" name="images" type="file" multiple accept="image/png, image/jpeg" />
+          <label for="images">Agora as fotos, até 5</label>
+          
+          <div class="form__images__content">
+            <input @change="setImages" id="images" name="images" type="file" multiple accept="image/png, image/jpeg" />
+
+            <div class="form__images__preview">
+              <img width="50" v-for="(url, index) in images" v-bind:key="index" v-bind:src="url" v-bind:alt="'Preview '+index">
+            </div>
+          </div>
 
           <span v-if="validation.images" class="internal__error">Esse campo é obrigatório</span>
-
-          <div class="form__images__preview">
-            <img width="50" v-for="(url, index) in images" v-bind:key="index" v-bind:src="url" v-bind:alt="'Preview '+index">
-          </div>
         </div>
 
         <div class="form__item__group checkbox">
@@ -153,9 +157,9 @@ export default {
       }
     },
     number(val) {
-      this.number = parseInt(this.number)
-      
-      if (val.length > 0) {
+      if (val.length < 10 || val.length > 11) {
+        this.validation.number = true
+      } else if (val.length > 0) {
         if (this.validation.number) {
           this.validation.number = false
         }
@@ -164,8 +168,6 @@ export default {
       }
     },
     price(val) {
-      this.price = parseInt(this.price)
-
       if (val.length > 0) {
         if (this.validation.price) {
           this.validation.price = false
@@ -212,14 +214,15 @@ export default {
     setImages(e) {
       this.images = []
 
-      const $this = this
       const files = e.target.files
 
-      files.forEach(file => {
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onload = e => {
-          $this.images.push(e.target.result)
+      files.forEach((file, index) => {
+        if (index < 5) {
+          const reader = new FileReader()
+          reader.readAsDataURL(file)
+          reader.onload = e => {
+            this.images.push(e.target.result)
+          }
         }
       })
     },
@@ -263,12 +266,11 @@ export default {
       if (this.name.length <= 0) this.validation.name = true
       if (this.city.length <= 0) this.validation.city = true
       if (this.number.length <= 0) this.validation.number = true
-      if (this.number.length < 10 || this.number.length > 10) this.validation.number = true
       if (this.price.length <= 0) this.validation.price = true
       if (this.description.length <= 0) this.validation.description = true
       if (this.images.length <= 0) this.validation.images = true
 
-      if (!this.validation.name, !this.validation.city, !this.validation.number, !this.validation.price, !this.validation.description, !this.validation.images) {
+      if (!this.validation.name && !this.validation.city && !this.validation.number && !this.validation.price && !this.validation.description && !this.validation.images) {
         this.formSubmit = true
 
         let registerDate = new Date().getTime()
@@ -288,7 +290,7 @@ export default {
               title: this.name,
               city: this.city,
               price: parseInt(this.price).toString(),
-              contact: this.number,
+              contact: parseInt(this.number).toString(),
               description: this.description,
               images: images,
               is_tradeble: this.trade,

@@ -107,6 +107,7 @@ export default {
       .then(res => res.data)
       .then(res => this.product = res)
       .then(() => this.product.register_date = this.parseDate())
+      .catch(() => this.is_load = true)
     },
     getProductsData() {
       return api.get("products")
