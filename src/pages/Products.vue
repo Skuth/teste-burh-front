@@ -22,7 +22,6 @@
 
 <script>
 import api from "@/services/api.js"
-import { useRoute } from "vue-router"
 
 import ItemBox from "@/components/ItemBox.vue"
 import Button from "@/components/Button.vue"
@@ -41,7 +40,6 @@ export default {
       pagina: 1,
       products: [],
       btnShow: true,
-      router: null,
       search: null,
       btn_load: false
     }
@@ -75,7 +73,7 @@ export default {
         })
     },
     getParam() {
-      const { pesquisa } = this.router.query
+      const { pesquisa } = this.$route.query
       if (typeof pesquisa !== "undefined") {
         this.search = pesquisa.toLowerCase()
       } else {
@@ -84,8 +82,6 @@ export default {
     }
   },
   mounted() {
-
-    this.router = useRoute()
     this.getParam()
 
     this.getData()

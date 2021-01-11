@@ -13,6 +13,12 @@ export default {
   components: {
     Navbar,
     Footer
+  },
+  watch: {
+    $route() {
+      const title = document.querySelector("title")
+      title.innerHTML = " Trasell - Um jeito fácil de vender online"
+    }
   }
 }
 </script>

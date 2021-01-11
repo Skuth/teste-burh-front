@@ -95,7 +95,6 @@ import api from "@/services/api.js"
 import imgur from "@/services/imgur.js"
 import sms from "@/services/sms.js"
 import axios from "axios"
-import { useRouter } from "vue-router"
 
 export default {
   name: "Announce",
@@ -118,7 +117,6 @@ export default {
         images: false,
       },
       formSubmit: false,
-      router: null,
       internal: false,
       stateList: null,
       cityList: null,
@@ -197,7 +195,7 @@ export default {
   },
   methods: {
     goToId(id) {
-      this.router.push(`/produto/${id}`)
+      this.$router.push(`/produto/${id}`)
     },
     getCityList() {
       axios.get("https://raw.githubusercontent.com/felipefdl/cidades-estados-brasil-json/master/Estados.json")
@@ -309,7 +307,6 @@ export default {
     }
   },
   mounted() {
-    this.router = useRouter()
     this.getCityList()
   }
 }

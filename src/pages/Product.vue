@@ -60,7 +60,6 @@
 
 <script>
 import api from "@/services/api.js"
-import { useRoute } from "vue-router"
 
 import Button from "@/components/Button"
 import ItemBox from "@/components/ItemBox"
@@ -78,8 +77,7 @@ export default {
       is_load: false,
       product: null,
       products: null,
-      activeImage: 0,
-      router: null
+      activeImage: 0
     }
   },
   watch: {
@@ -89,24 +87,29 @@ export default {
       this.products = null
       this.activeImage = 0
 
-      const { productId } = this.router.params
-
+      const { productId } = this.$route.params
+      
       if (typeof productId !== "undefined") {
         this.getProductData()
-        this.getProductsData()
+        .then(() => {
+          this.getProductsData()
+          .then(() => this.is_load = true)
+        })
       }
-
-      setTimeout(() => this.is_load = true, 2000)
     }
   },
   methods: {
     getProductData() {
-      const { productId } = this.router.params
+      const { productId } = this.$route.params
 
       return api.get(`products/${productId}`)
       .then(res => res.data)
       .then(res => this.product = res)
       .then(() => this.product.register_date = this.parseDate())
+      .then(() => {
+        const title = document.querySelector("title")
+        title.innerHTML = `Trasell - ${this.product.title}`
+      })
       .catch(() => this.is_load = true)
     },
     getProductsData() {
@@ -125,8 +128,6 @@ export default {
     }
   },
   mounted() {
-    this.router = useRoute()
-    
     this.getProductData()
     .then(() => {
       this.getProductsData()
